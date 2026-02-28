@@ -3,6 +3,7 @@ sarvamai
 openai-whisper
 sounddevice
 scipy
+numpy
 gradio
 jiwer
 python-dotenv
