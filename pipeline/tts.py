@@ -14,7 +14,7 @@ from pipeline.audio import get_audio_metadata, play_audio, save_audio_bytes
 
 
 MAX_TTS_CHARS = 2_500
-DEFAULT_SPEAKER = "anushka"
+DEFAULT_SPEAKER = "priya"
 DEFAULT_LANGUAGE_CODE = "en-IN"
 DEFAULT_SPEECH_RATE = 1.0
 DEFAULT_PITCH = 0.0
@@ -36,13 +36,6 @@ SUPPORTED_TTS_LANGUAGE_CODES = {
     "te-IN",
 }
 SUPPORTED_BULBUL_SPEAKERS = {
-    "anushka",
-    "abhilash",
-    "manisha",
-    "vidya",
-    "arya",
-    "karun",
-    "hitesh",
     "aditya",
     "ritu",
     "priya",
@@ -66,8 +59,6 @@ SUPPORTED_BULBUL_SPEAKERS = {
     "shubh",
     "ashutosh",
     "advait",
-    "amelia",
-    "sophia",
     "anand",
     "tanya",
     "tarun",
@@ -82,19 +73,20 @@ SUPPORTED_BULBUL_SPEAKERS = {
     "rehan",
     "soham",
     "rupali",
+    "niharika",
 }
 LANGUAGE_TO_DEFAULT_SPEAKER = {
-    "en-IN": "anushka",
-    "hi-IN": "anushka",
-    "bn-IN": "anushka",
-    "gu-IN": "anushka",
-    "kn-IN": "vidya",
-    "ml-IN": "manisha",
-    "mr-IN": "anushka",
-    "od-IN": "anushka",
-    "pa-IN": "anushka",
-    "ta-IN": "vidya",
-    "te-IN": "anushka",
+    "en-IN": "priya",
+    "hi-IN": "priya",
+    "bn-IN": "priya",
+    "gu-IN": "priya",
+    "kn-IN": "shruti",
+    "ml-IN": "priya",
+    "mr-IN": "priya",
+    "od-IN": "priya",
+    "pa-IN": "priya",
+    "ta-IN": "kavitha",
+    "te-IN": "priya",
 }
 LANGUAGE_HINTS = {
     "hi-IN": ("ह", "नहीं", "नमस्ते", "कृपया", "धन्यवाद", "क्या", "कैसे"),
@@ -380,14 +372,15 @@ def synthesize_speech_rest(
         "inputs": [text.strip()],
         "target_language_code": target_language_code,
         "speaker": speaker,
-        "pitch": pitch,
         "pace": speech_rate,
-        "loudness": loudness,
         "speech_sample_rate": sample_rate,
         "enable_preprocessing": enable_preprocessing,
         "model": SARVAM_TTS_MODEL,
         "output_audio_codec": "wav",
     }
+    if SARVAM_TTS_MODEL != "bulbul:v3":
+        payload["pitch"] = pitch
+        payload["loudness"] = loudness
     headers = {
         "api-subscription-key": SARVAM_API_KEY,
         "Content-Type": "application/json",
@@ -443,17 +436,22 @@ def _convert_with_retries(
     for attempt in range(max_retries + 1):
         try:
             client = SarvamAI(api_subscription_key=SARVAM_API_KEY)
+            kwargs: dict[str, Any] = {
+                "text": text.strip(),
+                "target_language_code": target_language_code,
+                "speaker": speaker,
+                "pace": speech_rate,
+                "speech_sample_rate": sample_rate,
+                "enable_preprocessing": enable_preprocessing,
+                "model": SARVAM_TTS_MODEL,
+                "output_audio_codec": "wav",
+            }
+            if SARVAM_TTS_MODEL != "bulbul:v3":
+                kwargs["pitch"] = pitch
+                kwargs["loudness"] = loudness
+
             return client.text_to_speech.convert(
-                text=text.strip(),
-                target_language_code=target_language_code,
-                speaker=speaker,
-                pitch=pitch,
-                pace=speech_rate,
-                loudness=loudness,
-                speech_sample_rate=sample_rate,
-                enable_preprocessing=enable_preprocessing,
-                model=SARVAM_TTS_MODEL,
-                output_audio_codec="wav",
+                **kwargs,
             )
         except Exception as exc:
             last_error = exc
