@@ -4,5 +4,7 @@ __pycache__/
 .env
 .venv/
 venv/
+.gradio/
 
 .DS_Store
+evaluation/results.json

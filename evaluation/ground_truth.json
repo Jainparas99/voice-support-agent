@@ -1,17 +1,17 @@
 [
   {
     "file": "english_sample.wav",
-    "ground_truth": "Hello I need help with my account",
+    "ground_truth": "Hello, I need help resetting my account password",
     "type": "english"
   },
   {
     "file": "hinglish_sample.wav",
-    "ground_truth": "Mujhe apna password reset karna hai",
+    "ground_truth": "Bhai mujhe apna subscription cancel karna hai, kaise karu?",
     "type": "hinglish"
   },
   {
     "file": "hindi_accented_english.wav",
-    "ground_truth": "I want to cancel my subscription please",
+    "ground_truth": "I am not able to login to my account since yesterday",
     "type": "hindi_accented_english"
   }
 ]
