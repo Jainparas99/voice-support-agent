@@ -8,6 +8,38 @@ Speech-to-speech customer support prototype with:
 - Gradio UI
 - WER evaluation samples
 
+# Multilingual Voice Support Agent
+
+End-to-end voice-based customer support bot handling English, Hindi, and Hinglish (code-switched speech) — built for Indian enterprise use cases.
+
+## Architecture
+
+Speech Input → Sarvam Saarika STT → Claude Support Agent → Sarvam Bulbul TTS → Voice Output
+
+## Why Sarvam?
+
+Standard ASR (Whisper, Google STT) degrades on Indian-accented English and code-switched Hinglish.
+Sarvam Saarika is trained natively on Indian languages — resulting in lower WER on Indian speech.
+
+## Benchmark Results
+
+| Input Type               | Sarvam WER | Whisper WER | Improvement |
+| ------------------------ | ---------- | ----------- | ----------- |
+| Indian-accented English  | X%         | Y%          | +Z%         |
+| Hinglish (code-switched) | X%         | Y%          | +Z%         |
+| Standard English         | X%         | Y%          | baseline    |
+
+## Demo
+
+[Hugging Face Spaces link]
+
+## Stack
+
+- STT: Sarvam.ai Saarika v2
+- LLM: Anthropic Claude API
+- TTS: Sarvam.ai Bulbul v1
+- UI: Gradio
+
 ## Setup
 
 ```bash
