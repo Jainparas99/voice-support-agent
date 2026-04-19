@@ -1,8 +1,8 @@
 anthropic
+sarvamai
+openai-whisper
+sounddevice
+scipy
 gradio
 jiwer
-openai
 python-dotenv
-sarvamai
-sounddevice
-soundfile

@@ -8,8 +8,6 @@ Speech-to-speech customer support prototype with:
 - Gradio UI
 - WER evaluation samples
 
-# Multilingual Voice Support Agent
-
 End-to-end voice-based customer support bot handling English, Hindi, and Hinglish (code-switched speech) — built for Indian enterprise use cases.
 
 ## Architecture
